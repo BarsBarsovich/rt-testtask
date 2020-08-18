@@ -1,0 +1,50 @@
+<div nz-row>
+  <div nz-col nzSpan="1"></div>
+  <div nz-col nzSpan="11">
+    <form nz-form [formGroup]="userFg"
+          (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="firstName">First Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Поле не заполнено!">
+          <label for="firstName">
+            <input nz-input formControlName="first" id="firstName"/>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="lastName">
+          Last Name
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Поле не заполнено!">
+          <label for="lastName">
+            <input nz-input formControlName="last" id="lastName"/>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="age">Age</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Поле не заполнено!">
+          <label for="age">
+            <input type="number" nz-input formControlName="age" id="age"/>
+          </label>
+
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Email</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Неправильный Email!">
+          <label for="email">
+            <input nz-input formControlName="email" id="email"/>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button [disabled]="userFg.invalid || !userFg.dirty"
+                  nz-button nzType="primary">{{(editMode) ? 'Сохранить' : 'Добавить'}}</button>
+          <button type="button" nz-button routerLink="/">Отмена</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

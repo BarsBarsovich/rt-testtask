@@ -1,0 +1,37 @@
+<div nz-row>
+  <div nz-col nzSpan="1"></div>
+  <div nz-col nzSpan="22">
+    <nz-table #nzTable [nzData]="users$ | async">
+      <thead>
+      <tr>
+        <th *ngFor="let column of cols" [nzSortFn]="column.compare"
+            [nzSortPriority]="column.priority">{{ column.title }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of nzTable.data">
+        <td>
+          <div class="avatar">
+            {{user | getUserInfo}}
+          </div>
+        </td>
+        <td>{{user | getUserInfo : true}}</td>
+        <td>{{user.name.first}}</td>
+        <td>{{user.name.last}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <a [routerLink]="user.guid">
+            Редактировать
+          </a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button nz-button nzType="link" nzDanger
+                  (click)="deleteUser(user.guid)">
+            Удалить
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

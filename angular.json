@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rt-testtask"
+    }
+  },
+  "defaultProject": "rt-testtask",
+  "cli": {
+    "analytics": false
+  }
 }
