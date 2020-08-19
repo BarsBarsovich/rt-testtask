@@ -4,7 +4,7 @@
     <nz-table #nzTable [nzData]="users$ | async">
       <thead>
       <tr>
-        <th *ngFor="let column of cols" [nzSortFn]="column.compare"
+        <th *ngFor="let column of headerCols" [nzSortFn]="column.compare"
             [nzSortPriority]="column.priority">{{ column.title }}</th>
       </tr>
       </thead>

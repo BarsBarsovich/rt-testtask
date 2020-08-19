@@ -57,20 +57,26 @@ export class UserInfoComponent implements OnInit {
   submitForm() {
     let currentUser = this.fillUserModel();
     this.editMode ?
-      this.userService.updateUser(currentUser) :
+      this.userService.updateUser(currentUser)
+        .pipe(tap(() => {
+          this.showModal('Данные обновлены');
+        })).toPromise() :
       this.userService.addUser(currentUser)
         .pipe(
           tap((user) => {
             currentUser = user;
+            this.showModal('Запись добавлена, теперь вы можете ее отредактировать');
             this.router.navigate([user.guid]);
           }),
         ).toPromise();
     this.resetForm(currentUser);
-    this.modal.info({
-      nzContent: this.editMode ? 'Данные обновлены' : 'Запись добавлена, теперь вы можете ее отредактировать'
-    });
   }
 
+  private showModal(text: string) {
+    this.modal.info({
+      nzContent: text
+    });
+  }
 
   private resetForm(user: User) {
     this.userFg.reset({

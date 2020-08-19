@@ -1,4 +1,3 @@
-/* tslint:disable:typedef */
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
@@ -17,11 +16,12 @@ export class UsersService {
   }
 
   getUsersList(): Observable<User[]> {
-    const users = JSON.parse(localStorage.getItem(storageKey));
+    const users = this.getFromStorage();
     return (users)
       ? of(users)
       : this.http.get<User[]>('/assets/mates.json')
         .pipe(tap(items => localStorage.setItem(storageKey, JSON.stringify(items))));
+
   }
 
   deleteUser(guid: string) {
@@ -39,18 +39,24 @@ export class UsersService {
     return JSON.parse(localStorage.getItem(storageKey)) as User[];
   }
 
-  updateUser(user: User) {
+  updateUser(user: User): Observable<{}> {
     const currentUsers = JSON.parse(localStorage.getItem(storageKey)) as User[];
     const userIndex = currentUsers.map(usr => usr.guid).indexOf(user.guid);
     currentUsers[userIndex] = user;
     localStorage.setItem(storageKey, JSON.stringify(currentUsers));
+    return of(null);
+
   }
 
   addUser(user: User): Observable<User> {
+    if (!user) {
+      return;
+    }
     user.guid = uid();
     const users = [...this.getFromStorage(), user];
     localStorage.setItem(storageKey, JSON.stringify(users));
     return of(user);
+
   }
 }
 

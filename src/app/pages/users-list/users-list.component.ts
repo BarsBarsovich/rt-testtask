@@ -1,4 +1,3 @@
-/* tslint:disable:typedef */
 import {Component, OnInit} from '@angular/core';
 import {User, UsersService} from '../../services/users.service';
 import {Observable} from 'rxjs';
@@ -10,7 +9,7 @@ import {Observable} from 'rxjs';
 })
 export class UsersListComponent implements OnInit {
   users$: Observable<User[]>;
-  cols = COLS;
+  headerCols = HEADER_COLS;
 
   constructor(
     private userService: UsersService
@@ -28,7 +27,7 @@ export class UsersListComponent implements OnInit {
 
 }
 
-const COLS = [
+const HEADER_COLS = [
   {
     title: 'Avatar'
   },
@@ -37,17 +36,14 @@ const COLS = [
   },
   {
     title: 'First Name',
-    compare: (a: User, b: User) => (a?.name?.first > b?.name?.first) ? 1 : -1,
     priority: 3
   },
   {
     title: 'Last Name',
-    compare: (a: User, b: User) => (a?.name?.last > b?.name?.last) ? 1 : -1,
     priority: 2
   },
   {
     title: 'Age',
-    compare: (a: User, b: User) => a?.age - b?.age,
     priority: 1
   },
   {
